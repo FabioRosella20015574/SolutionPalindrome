@@ -1,0 +1,37 @@
+    static long substrCount(int n, string s) {
+
+        int count = 0;      //contatore dei palindromi speciali(senza caratteri singoli)
+        int i = 0;          //contatore primo ciclo
+        int j;
+        int z;
+        int pali;           //contatore in caso in cui si trovi un carattere diverso dal primo(i)
+
+        while(i<(n-1)){     //ciclo per ogni singolo carattere
+            j = i + 1;      
+            while(j < n && (s[i] == s[j])){   //per ogni singolo carattere ciclo finchè trovo
+                count ++;                     //un carattere uguale al primo
+                j++;
+            }                             //esco se il carattere trovato è diverso dal s[i] 
+            if(j != n)                    //controllo che la stringa non sia terminata
+            {
+                pali = j - i;    //salvo in pali il numero di caratteri passati prima di aver
+                                 //trovato un carattere diverso (così da contare i successivi)
+                z = j + 1;       //contatore per verificare che i successivi siano uguali
+
+                while((pali > 0) && (z < n))    //ciclo nei successivi pali o fino a fine stringa
+                {
+                    if(s[z] != s[i])    //se solo un carattere è diverso non ha senso continuare
+                        break;
+                    else                //altrimenti decremento pali
+                        pali --;
+                    z ++;               //incremento il contatore per scorrere la stringa
+                }
+                if(pali == 0)           //se pali è arrivato effettivamente a 0
+                    count ++;           //posso contare la sottosequenza come palindroma
+            }
+            i++;                        //passo al carattere successivo
+        }
+
+        long result = (long)count + (long)n; 
+        return result;
+    }  }
